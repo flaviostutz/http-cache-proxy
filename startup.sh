@@ -10,5 +10,5 @@ envsubst < "$f" > "$f"
 
 cat "$f"
 
-echo "Starting nginx on port 80""
+echo "Starting nginx on port 80"
 nginx -g "daemon off;"

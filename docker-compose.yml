@@ -2,13 +2,13 @@ version: '3.7'
 
 services:
 
-  http-cache-proxy:
+  nginx-cache-proxy:
     build: .
-    image: flaviostutz/http-cache-proxy
+    image: flaviostutz/nginx-cache-proxy
     ports:
       - 8282:80
     environment:
-      - PROXY_PASS_URL=http://localhost:8181/
+      - PROXY_PASS_URL=http://map-demos/
 
   map-demos:
     image: flaviostutz/map-demos
