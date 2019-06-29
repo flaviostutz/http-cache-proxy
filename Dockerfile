@@ -24,7 +24,7 @@ ENV CACHE_BYPASS '$http_pragma'
 ENV CACHE_BACKGROUND_UPDATE 'on'
 ENV CACHE_USE_STALE 'error timeout invalid_header updating http_500 http_502 http_503 http_504'
 ENV CACHE_METHODS 'GET HEAD'
-ENV CACHE_BYPASS '$cookie_nocache $arg_nocache'
+ENV CACHE_BYPASS '$cookie_nocache $arg_nocache $http_cache_control'
 ENV UPSTREAM_CACHE_STATUS '$upstream_cache_status'
 
 ADD /default.conf /etc/nginx/conf.d/
