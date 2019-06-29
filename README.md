@@ -9,7 +9,6 @@ This enables any HTTP service to employ a front cache to minimize unnecessary ca
 version: '3.7'
 services:
   nginx-cache-proxy:
-    build: .
     image: flaviostutz/nginx-cache-proxy
     ports:
       - 8282:80
