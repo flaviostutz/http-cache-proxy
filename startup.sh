@@ -7,7 +7,8 @@ fi
 
 f="/etc/nginx/conf.d/default.conf"
 envsubst < "$f" > "$f"
-
+sed -i 's/_request_method/\$request_method/g' $f
+echo $f
 cat "$f"
 
 echo "Starting nginx on port 80"
