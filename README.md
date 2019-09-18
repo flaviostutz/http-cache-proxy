@@ -42,6 +42,7 @@ All ENV configurations have the same name as in NGINX documentation. Check http:
 * PROXY_COOKIE_DOMAIN 'www.test.com localhost'
 
 * SERVE_PATH '/_www' - custom http path for serving files under dir /www
+* REDIR_FROM_PATH '/_test' - path from which to redirect to serve path so that the request will be handled by a file in this proxy
 
 * CACHE_MAX_SIZE '1g'
 * CACHE_KEY_SIZE '10m'

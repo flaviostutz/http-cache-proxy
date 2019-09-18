@@ -6,6 +6,8 @@ RUN \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* 
 
+RUN mkdir /www
+
 ENV CORE_SEND_FILE 'on'
 
 ENV PROXY_PASS_URL ''
@@ -31,9 +33,11 @@ ENV PROXY_COOKIE_DOMAIN 'www.test.com localhost'
 ENV CORS_ALLOW_ORIGIN '*'
 
 ENV SERVE_PATH '/_www'
+ENV REDIR_FROM_PATH '/_test'
 
 ADD /default.conf /etc/nginx/conf.d/
 ADD /startup.sh /
+ADD /index.html /www/_www/index.html
 
 VOLUME [ "/nginx/cache" ]
 
