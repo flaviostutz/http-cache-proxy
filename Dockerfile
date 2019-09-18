@@ -30,6 +30,8 @@ ENV UPSTREAM_CACHE_STATUS '$upstream_cache_status'
 ENV PROXY_COOKIE_DOMAIN 'www.test.com localhost'
 ENV CORS_ALLOW_ORIGIN '*'
 
+ENV SERVE_PATH '/_www'
+
 ADD /default.conf /etc/nginx/conf.d/
 ADD /startup.sh /
 
