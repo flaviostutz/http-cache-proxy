@@ -39,6 +39,7 @@ All ENV configurations have the same name as in NGINX documentation. Check http:
 * PROXY_PASS_URL ''
 * PROXY_READ_TIMEOUT '30s'
 * PROXY_LIMIT_RATE_BYTES_PER_SECOND '0'
+* PROXY_COOKIE_DOMAIN 'www.test.com localhost'
 
 * CACHE_MAX_SIZE '1g'
 * CACHE_KEY_SIZE '10m'
