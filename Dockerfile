@@ -28,6 +28,7 @@ ENV CACHE_BYPASS '$cookie_nocache $arg_nocache $http_cache_control'
 ENV UPSTREAM_CACHE_STATUS '$upstream_cache_status'
 
 ENV PROXY_COOKIE_DOMAIN 'www.test.com localhost'
+ENV CORS_ALLOW_ORIGIN '*'
 
 ADD /default.conf /etc/nginx/conf.d/
 ADD /startup.sh /

@@ -34,6 +34,7 @@ services:
 All ENV configurations have the same name as in NGINX documentation. Check http://nginx.org/en/docs/http/ngx_http_proxy_module.html for details
 
 * CORE_SEND_FILE 'on'
+* CORS_ALLOW_ORIGIN '*'
 
 * PROXY_PASS_URL ''
 * PROXY_READ_TIMEOUT '30s'
