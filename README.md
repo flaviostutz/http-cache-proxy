@@ -67,7 +67,7 @@ All ENV configurations have the same name as in NGINX documentation. Check http:
 ```shell
 docker buildx create --name mybuilder
 docker buildx create --use
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t flaviostutz/nginx-cache-proxy:1.7.0 --push .
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t flaviostutz/nginx-cache-proxy:1.7.1 --push .
 ```
 
 * See more at https://engineering.docker.com/2019/04/multi-arch-images/

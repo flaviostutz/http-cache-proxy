@@ -6,7 +6,8 @@ if [ "$PROXY_PASS_URL" == "" ]; then
 fi
 
 f="/etc/nginx/conf.d/default.conf"
-envsubst < "$f" > "$f"
+envsubst < "$f" > /tmp/default.conf
+cp /tmp/default.conf $f
 sed -i 's/_request_method/\$request_method/g' $f
 echo $f
 cat "$f"
