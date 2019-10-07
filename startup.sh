@@ -5,11 +5,15 @@ if [ "$PROXY_PASS_URL" == "" ]; then
     exit 1
 fi
 
+
 f="/etc/nginx/conf.d/default.conf"
-envsubst < "$f" > /tmp/default.conf
-cp /tmp/default.conf $f
-sed -i 's/_request_method/\$request_method/g' $f
-sed -i 's/#scheme#proxy_host#uri#is_args#args/\$scheme\$proxy_host\$uri\$is_args\$args/g' $f
+if [ ! -f  /tmp/default.conf ]; then
+    echo "Preparing configuration file..."
+    envsubst < "$f" > /tmp/default.conf
+    cp /tmp/default.conf $f
+    sed -i 's/#request_method/\$request_method/g' $f
+    sed -i 's/#scheme#proxy_host#uri#is_args#args/\$scheme\$proxy_host\$uri\$is_args\$args/g' $f
+fi
 
 echo $f
 cat "$f"
