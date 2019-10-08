@@ -33,7 +33,9 @@ ENV PROXY_COOKIE_DOMAIN 'www.test.com localhost'
 ENV CORS_ALLOW_ORIGIN '*'
 
 ENV SERVE_PATH '/_www'
+ENV SERVE_PATH2 '/_www'
 ENV REDIR_FROM_PATH '/_test'
+ENV REDIR_FROM_PATH2 '/_test2'
 
 ADD /default.conf /etc/nginx/conf.d/
 ADD /startup.sh /
