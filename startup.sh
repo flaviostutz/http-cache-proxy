@@ -5,8 +5,16 @@ if [ "$PROXY_PASS_URL" == "" ]; then
     exit 1
 fi
 
+if [ "$REQUEST_LOG_LEVEL" == "basic" ]; then
+    export LOG_CONFIG_FRAG="    access_log /dev/stdout;"
+    export LOG_FORMAT_FRAG=""
+elif [ "$REQUEST_LOG_LEVEL" == "body" ]; then
+    export LOG_CONFIG_FRAG="$(<log-response.conf)"
+    export LOG_FORMAT_FRAG="$(<log-format.conf)"
+fi
 
 f="/etc/nginx/conf.d/default.conf"
+echo ">>>>LOG_CONFIG_FRAG=$LOG_CONFIG_FRAG"
 if [ ! -f  /tmp/default.conf ]; then
     echo "Preparing configuration file..."
     envsubst < "$f" > /tmp/default.conf
@@ -15,8 +23,9 @@ if [ ! -f  /tmp/default.conf ]; then
     sed -i 's/#scheme#proxy_host#uri#is_args#args/\$scheme\$proxy_host\$uri\$is_args\$args/g' $f
 fi
 
-echo $f
+echo "Configuration file $f"
 cat "$f"
 
 echo "Starting nginx on port 80"
 nginx -g "daemon off;"
+

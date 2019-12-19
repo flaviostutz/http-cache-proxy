@@ -36,6 +36,8 @@ All ENV configurations have the same name as in NGINX documentation. Check http:
 * CORE_SEND_FILE 'on'
 * CORS_ALLOW_ORIGIN '*'
 
+* REQUEST_LOG_LEVEL 'basic' - 'basic' logs to stdout basic request info (method, path, headers etc); 'body' logs to stdout the entire request and response body; 'none' silence request log
+
 * PROXY_PASS_URL ''
 * PROXY_READ_TIMEOUT '30s'
 * PROXY_LIMIT_RATE_BYTES_PER_SECOND '0'

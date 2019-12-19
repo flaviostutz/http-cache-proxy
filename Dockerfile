@@ -1,14 +1,16 @@
-FROM nginx:1.17.0
+FROM nginx:1.17.6
 
 RUN \
   apt-get update \
-  && apt-get -y install gettext-base \
+  && apt-get -y install gettext-base nginx-extras \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* 
 
 RUN mkdir /www
 
 ENV CORE_SEND_FILE 'on'
+
+ENV REQUEST_LOG_LEVEL 'basic'
 
 ENV PROXY_PASS_URL ''
 ENV PROXY_READ_TIMEOUT '30s'
@@ -39,6 +41,8 @@ ENV REDIR_FROM_PATH2 '/_test2'
 
 ADD /default.conf /etc/nginx/conf.d/
 ADD /startup.sh /
+ADD /log-response.conf /
+ADD /log-format.conf /
 ADD /index.html /www/_www/index.html
 
 VOLUME [ "/nginx/cache" ]

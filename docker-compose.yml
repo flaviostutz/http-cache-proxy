@@ -9,6 +9,7 @@ services:
       - 8282:80
     environment:
       - PROXY_PASS_URL=http://map-demos/
+      - REQUEST_LOG_LEVEL=body
 
   map-demos:
     image: flaviostutz/map-demos
