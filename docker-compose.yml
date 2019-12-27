@@ -4,7 +4,7 @@ services:
 
   nginx-cache-proxy:
     build: .
-    image: flaviostutz/nginx-cache-proxy:1.8.2
+    image: flaviostutz/nginx-cache-proxy:1.8.3
     ports:
       - 8282:80
     environment:
