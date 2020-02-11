@@ -4,7 +4,7 @@ services:
 
   nginx-cache-proxy:
     build: .
-    image: flaviostutz/nginx-cache-proxy:1.8.4
+    image: flaviostutz/nginx-cache-proxy
     ports:
       - 8282:80
       - 443:443

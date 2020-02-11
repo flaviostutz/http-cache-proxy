@@ -53,8 +53,6 @@ ADD /server-ssl.conf /
 ADD /server-nonssl.conf /
 ADD /index.html /www/_www/index.html
 
-RUN rm /etc/nginx/sites-enabled/default
-
 VOLUME [ "/nginx/cache" ]
 
 CMD ["/startup.sh"]
