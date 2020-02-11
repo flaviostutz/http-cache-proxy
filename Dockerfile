@@ -1,8 +1,11 @@
-FROM nginx:1.17.6
+FROM nginx:1.17.8
+
+EXPOSE 80
+EXPOSE 443
 
 RUN \
   apt-get update \
-  && apt-get -y install gettext-base nginx-extras \
+  && apt-get -y install gettext-base nginx-extras openssl \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* 
 
@@ -39,11 +42,18 @@ ENV SERVE_PATH2 '/_www'
 ENV REDIR_FROM_PATH '/_test'
 ENV REDIR_FROM_PATH2 '/_test2'
 
+ENV SSL_DOMAIN ''
+
 ADD /default.conf /etc/nginx/conf.d/
+ADD /ssl-params.conf /etc/nginx/
 ADD /startup.sh /
 ADD /log-response.conf /
 ADD /log-format.conf /
+ADD /server-ssl.conf /
+ADD /server-nonssl.conf /
 ADD /index.html /www/_www/index.html
+
+RUN rm /etc/nginx/sites-enabled/default
 
 VOLUME [ "/nginx/cache" ]
 

@@ -1,10 +1,14 @@
 #!/bin/bash
 
+set -e
+# set -x
+
 if [ "$PROXY_PASS_URL" == "" ]; then
     echo "PROXY_PASS_URL environment variable is required"
     exit 1
 fi
 
+#LOG LEVEL
 if [ "$REQUEST_LOG_LEVEL" == "basic" ]; then
     export LOG_CONFIG_FRAG="    access_log /dev/stdout;"
     export LOG_FORMAT_FRAG=""
@@ -13,8 +17,38 @@ elif [ "$REQUEST_LOG_LEVEL" == "body" ]; then
     export LOG_FORMAT_FRAG="$(<log-format.conf)"
 fi
 
+#SSL SUPPORT
+if [ "$SSL_DOMAIN" == "" ]; then
+    echo "No SSL domain set. Will listen only to plain HTTP connections on port 80"
+    export SERVER_FRAG="$(<server-nonssl.conf)"
+else
+    echo "SSL domain set to $SSL_DOMAIN. Will listen to HTTPS/2 connections on port 443 and redirect requests from port 80 (HSTS will be applied)."
+    envsubst < server-ssl.conf > /tmp/server-ssl.conf && cp /tmp/server-ssl.conf server-ssl.conf
+    sed -i 's/#server_name#request_uri/\$server_name$request_uri/g' server-ssl.conf
+    export SERVER_FRAG="$(<server-ssl.conf)"
+
+    if [ ! -f /ssl-done ]; then
+        echo "Preparing SSL certificates..."
+
+        if [ ! -f /etc/ssl/certs/domain.crt ] || [ ! -f /etc/ssl/private/domain.key ]; then
+            echo "SSL certificate and private key were not found at /etc/ssl/certs/domain.crt and /etc/ssl/private/domain.key"
+            echo "Generating a self signed certificate for $SSL_DOMAIN..."
+            openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+                    -keyout /etc/ssl/private/domain.key \
+                    -out /etc/ssl/certs/domain.crt \
+                    -subj "/C=BR/ST=DF/L=Brasilia/O=Flavio Stutz/OU=IT Department/CN=$SSL_DOMAIN"
+        else
+            echo "Using provided certificate at /etc/ssl/certs/domain.crt and /etc/ssl/private/domain.key"
+        fi
+
+        echo "Generating Diffie-Hellman file for enhanced security..."
+        openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+
+        touch /ssl-done
+    fi
+fi
+
 f="/etc/nginx/conf.d/default.conf"
-echo ">>>>LOG_CONFIG_FRAG=$LOG_CONFIG_FRAG"
 if [ ! -f  /tmp/default.conf ]; then
     echo "Preparing configuration file..."
     envsubst < "$f" > /tmp/default.conf

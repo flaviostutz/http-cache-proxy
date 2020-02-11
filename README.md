@@ -12,8 +12,10 @@ services:
     image: flaviostutz/nginx-cache-proxy
     ports:
       - 8282:80
+      - 8443:443
     environment:
       - PROXY_PASS_URL=http://map-demos/
+      - SSL_DOMAIN=localhost
 
   map-demos:
     image: flaviostutz/map-demos
@@ -60,6 +62,11 @@ All ENV configurations have the same name as in NGINX documentation. Check http:
 * CACHE_METHODS 'GET HEAD'
 * CACHE_BYPASS '$cookie_nocache $arg_nocache'
 * UPSTREAM_CACHE_STATUS '$upstream_cache_status'
+
+* SSL_DOMAIN '' - If not empty, this will enable HTTPS on port 443
+  * It will use any existing key/certificate at /etc/ssl/private/domain.key and /etc/ssl/certs/domain.crt
+  * If you wish to provide valid public certificates, create a new container based on this one and add certificates using 'ADD /domain.key /etc/ssl/private/domain.key' and 'ADD /domain.crt /etc/ssl/certs/domain.crt'
+  * If any of these files doesn't exist, it will generate a self signed certificate for this domain during startup
 
 ## Building for other architectures
 
