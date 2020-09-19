@@ -54,11 +54,19 @@ if [ ! -f  /tmp/default.conf ]; then
     envsubst < "$f" > /tmp/default.conf
     cp /tmp/default.conf $f
     sed -i 's/#request_method/\$request_method/g' $f
+    sed -i 's/#host/\$host/g' $f
+    sed -i 's/#http_upgrade/\$http_upgrade/g' $f
+    # sed -i 's/#http_connection/\$http_connection/g' $f
+    sed -i 's/#connection_upgrade/\$connection_upgrade/g' $f
+    sed -i 's/#proxy_add_x_forwarded_for/\$proxy_add_x_forwarded_for/g' $f
     sed -i 's/#scheme#proxy_host#uri#is_args#args/\$scheme\$proxy_host\$uri\$is_args\$args/g' $f
 fi
 
+# echo "" > /etc/nginx/sites-available/default
+# cp /test-default.conf $f
+
 echo "Configuration file $f"
-cat "$f"
+cat --number "$f"
 
 echo "Starting nginx on port 80"
 nginx -g "daemon off;"

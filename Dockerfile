@@ -1,4 +1,5 @@
-FROM nginx:1.17.8
+# FROM nginx:1.17.8
+FROM nginx:1.19.2
 
 EXPOSE 80
 EXPOSE 443
@@ -52,6 +53,7 @@ ADD /log-format.conf /
 ADD /server-ssl.conf /
 ADD /server-nonssl.conf /
 ADD /index.html /www/_www/index.html
+ADD /test-default.conf /
 
 VOLUME [ "/nginx/cache" ]
 

@@ -9,9 +9,9 @@ services:
       - 8282:80
       - 443:443
     environment:
-      - PROXY_PASS_URL=http://map-demos/
+      - PROXY_PASS_URL=http://192.168.1.8:3000
       - REQUEST_LOG_LEVEL=body
-      - SSL_DOMAIN=localhost
+      # - SSL_DOMAIN=localhost
 
   map-demos:
     image: flaviostutz/map-demos

@@ -1,5 +1,19 @@
 # nginx-cache-proxy
+
 This enables any HTTP service to employ a front cache to minimize unnecessary calls by employing a front cache with nginx
+
+It also supports
+
+* cors control
+* local file serving
+* request/response body contents logging
+* request latency logging
+* websockets support
+* automatic localhost TLS certificate
+* custom domain certificate configuration
+* data throughput limit
+
+See ENVs section for more configuration details.
 
 ## Usage
 
